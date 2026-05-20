@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Salva il Capo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #faf9f6;
+      --surface: #ffffff;
+      --surface2: #f2f0eb;
+      --border: rgba(0,0,0,0.1);
+      --border2: rgba(0,0,0,0.18);
+      --text: #1a1917;
+      --text2: #6b6860;
+      --text3: #9c9a94;
+      --accent: #1a1917;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #141412;
+        --surface: #1e1d1a;
+        --surface2: #272521;
+        --border: rgba(255,255,255,0.09);
+        --border2: rgba(255,255,255,0.16);
+        --text: #f0ede6;
+        --text2: #9c9a94;
+        --text3: #6b6860;
+        --accent: #f0ede6;
+      }
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .app {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .header { margin-bottom: 3rem; }
+
+    .lang-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 2rem;
+    }
+
+    .lang-link {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text2);
+      text-decoration: none;
+      padding: 6px 14px;
+      border: 0.5px solid var(--border2);
+      border-radius: 20px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .lang-link:hover { color: var(--text); border-color: var(--text); }
+
+    h1 {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(44px, 8vw, 64px);
+      font-weight: 400;
+      line-height: 1.0;
+      letter-spacing: -1px;
+      color: var(--text);
+    }
+
+    .header p {
+      font-size: 15px;
+      color: var(--text2);
+      margin-top: 10px;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 540px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text3);
+    }
+
+    select, textarea {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      padding: 12px 16px;
+      border: 0.5px solid var(--border2);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    select:focus, textarea:focus { border-color: var(--text); }
+
+    textarea {
+      resize: none;
+      min-height: 90px;
+      line-height: 1.6;
+      margin-top: 10px;
+    }
+
+    .color-row { display: flex; gap: 10px; }
+
+    .color-btn {
+      flex: 1;
+      padding: 12px 8px;
+      border: 0.5px solid var(--border2);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      color: var(--text2);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .color-btn .swatch {
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      border: 0.5px solid var(--border2);
+      flex-shrink: 0;
+    }
+
+    .color-btn.active {
+      border-color: var(--text);
+      background: var(--surface2);
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: opacity 0.15s, transform 0.1s;
+      margin-top: 4px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .submit-btn:hover { opacity: 0.82; }
+    .submit-btn:active { transform: scale(0.99); }
+    .submit-btn:disabled { opacity: 0.35; cursor: default; }
+
+    .result-area {
+      margin-top: 2.5rem;
+      border-top: 0.5px solid var(--border);
+      padding-top: 2.5rem;
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .result-area.show { display: block; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    .context-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 1.5rem; }
+
+    .chip {
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 0.5px solid var(--border2);
+      color: var(--text2);
+      background: var(--surface2);
+      font-weight: 400;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 14px;
+    }
+
+    .steps-grid { display: grid; gap: 12px; margin-bottom: 2rem; }
+
+    .step-card {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem 1.4rem;
+      background: var(--surface);
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .step-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 0.5px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text2);
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--text2);
+    }
+
+    .step-content {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--text);
+      padding-left: 36px;
+    }
+
+    .divider { height: 0.5px; background: var(--border); margin: 1.8rem 0; }
+
+    .tip-box {
+      background: var(--surface2);
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1.4rem;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--text2);
+      border-left: 2px solid var(--border2);
+    }
+
+    .loading-wrap { padding: 1.5rem 0; }
+
+    .loading-dots { display: flex; gap: 6px; }
+
+    .loading-dots span {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--text3);
+      animation: dot 1s ease-in-out infinite;
+    }
+    .loading-dots span:nth-child(2) { animation-delay: 0.15s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes dot {
+      0%, 100% { opacity: 0.2; transform: scale(0.7); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    .error-msg {
+      font-size: 14px;
+      color: #c0392b;
+      padding: 1rem 0;
+    }
+
+    .footer {
+      margin-top: 4rem;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text3);
+      letter-spacing: 0.04em;
+    }
+
+    #other-stain-wrapper { display: none; }
+    #other-stain-wrapper.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <div class="lang-switch">
+      <a href="index.html" class="lang-link">English →</a>
+    </div>
+
+    <div class="header">
+      <h1>Salva il<br>Capo.</h1>
+      <p>Dicci cos'è successo — ti diciamo esattamente cosa fare.</p>
+    </div>
+
+    <div class="form-grid">
+
+      <div class="field">
+        <label>Tipo di tessuto</label>
+        <select id="fabric">
+          <option value="cotone">Cotone</option>
+          <option value="lino">Lino</option>
+          <option value="lana">Lana</option>
+          <option value="cashmere">Cashmere</option>
+          <option value="seta">Seta</option>
+          <option value="sintetico / poliestere">Sintetico / Poliestere</option>
+          <option value="denim">Denim</option>
+          <option value="viscosa / rayon">Viscosa / Rayon</option>
+          <option value="velluto">Velluto</option>
+          <option value="pelle">Pelle</option>
+          <option value="piumino">Piumino</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Colore del tessuto</label>
+        <div class="color-row">
+          <button class="color-btn active" data-color="bianco" onclick="selectColor(this)">
+            <span class="swatch" style="background:#f5f5f0; border-color:#ccc;"></span> Bianco
+          </button>
+          <button class="color-btn" data-color="nero" onclick="selectColor(this)">
+            <span class="swatch" style="background:#1a1a1a;"></span> Nero
+          </button>
+          <button class="color-btn" data-color="colorato" onclick="selectColor(this)">
+            <span class="swatch" style="background: conic-gradient(red,yellow,lime,aqua,blue,magenta,red);"></span> Colore
+          </button>
+        </div>
+      </div>
+
+      <div class="field full">
+        <label>Tipo di macchia</label>
+        <select id="stain-type" onchange="handleStainChange(this)">
+          <optgroup label="Cibo e bevande">
+            <option value="vino rosso">Vino rosso</option>
+            <option value="vino bianco">Vino bianco</option>
+            <option value="caffè">Caffè</option>
+            <option value="tè">Tè</option>
+            <option value="pomodoro / salsa di pomodoro">Pomodoro / salsa di pomodoro</option>
+            <option value="grasso / olio da cucina">Grasso / olio da cucina</option>
+            <option value="burro">Burro</option>
+            <option value="cioccolato">Cioccolato</option>
+            <option value="succo di frutta / bacche">Succo di frutta / bacche</option>
+            <option value="senape">Senape</option>
+            <option value="curry / curcuma">Curry / curcuma</option>
+            <option value="uovo">Uovo</option>
+            <option value="latte / latticini">Latte / latticini</option>
+          </optgroup>
+          <optgroup label="Corpo">
+            <option value="sangue">Sangue</option>
+            <option value="sudore">Sudore</option>
+            <option value="deodorante">Deodorante</option>
+            <option value="trucco / fondotinta">Trucco / fondotinta</option>
+            <option value="rossetto">Rossetto</option>
+            <option value="smalto per unghie">Smalto per unghie</option>
+            <option value="urina">Urina</option>
+          </optgroup>
+          <optgroup label="Natura e outdoor">
+            <option value="erba">Erba</option>
+            <option value="fango / terra">Fango / terra</option>
+            <option value="polline">Polline</option>
+          </optgroup>
+          <optgroup label="Altro">
+            <option value="inchiostro (penna / pennarello)">Inchiostro (penna / pennarello)</option>
+            <option value="cera / cera di candela">Cera / cera di candela</option>
+            <option value="gomma da masticare">Gomma da masticare</option>
+            <option value="crema solare">Crema solare</option>
+            <option value="ruggine">Ruggine</option>
+            <option value="vernice a base d'acqua">Vernice a base d'acqua</option>
+            <option value="vernice a base di olio">Vernice a base di olio</option>
+            <option value="colla">Colla</option>
+            <option value="altro">Altro — descrivi qui sotto ↓</option>
+          </optgroup>
+        </select>
+
+        <div id="other-stain-wrapper">
+          <textarea id="other-stain" placeholder="Descrivi la macchia (es. tè alla curcuma su una giacca da lavare a secco…)"></textarea>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="submit-btn" id="submit-btn" onclick="getTreatment()">
+      Ottieni la guida al trattamento
+    </button>
+
+    <div class="result-area" id="result-area">
+      <div class="context-chips" id="context-chips"></div>
+      <div id="result-content"></div>
+    </div>
+
+    <div class="footer">Salva il Capo &mdash; powered by Claude AI</div>
+
+  </div>
+
+  <script>
+    let selectedColor = 'bianco';
+
+    function selectColor(btn) {
+      document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedColor = btn.dataset.color;
+    }
+
+    function handleStainChange(sel) {
+      document.getElementById('other-stain-wrapper').classList.toggle('show', sel.value === 'altro');
+    }
+
+    async function getTreatment() {
+      const fabric = document.getElementById('fabric').value;
+      const stainVal = document.getElementById('stain-type').value;
+      const otherText = document.getElementById('other-stain').value.trim();
+      const stain = stainVal === 'altro' ? (otherText || 'una macchia non specificata') : stainVal;
+
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Analisi in corso…';
+
+      const resultArea = document.getElementById('result-area');
+      const resultContent = document.getElementById('result-content');
+      const chips = document.getElementById('context-chips');
+
+      resultArea.classList.add('show');
+      chips.innerHTML = `<span class="chip">${fabric}</span><span class="chip">${selectedColor}</span><span class="chip">${stain}</span>`;
+      resultContent.innerHTML = '<div class="loading-wrap"><div class="loading-dots"><span></span><span></span><span></span></div></div>';
+
+      const prompt = `Sei un esperto di cura dei tessuti e lavanderia. Un utente ha una macchia e ha bisogno di aiuto immediato.
+
+Tessuto: ${fabric}
+Colore del tessuto: ${selectedColor}
+Macchia: ${stain}
+
+Fornisci una guida pratica e concisa al trattamento, strutturata in esattamente queste 4 sezioni. Sii specifico e operativo. Adatta tutti i consigli al tessuto e al colore specifici. Per tessuti delicati (seta, cashmere, lana, velluto) sii sempre cauto e menziona la pulitura professionale quando opportuno.
+
+Rispondi SOLO in questo formato JSON (senza markdown, senza backtick, senza testo aggiuntivo):
+{
+  "immediato": "Cosa fare ORA nei prossimi 1-2 minuti. Azioni specifiche: tamponare, sciacquare con acqua fredda, applicare sale, acqua frizzante, sapone per piatti, ecc.",
+  "tempo_trattamento": "Quanto tempo lasciare il trattamento e cosa osservare. Includi tempi precisi.",
+  "lavaggio": "Come lavare — temperatura, lavatrice o a mano, programma specifico. Sii preciso.",
+  "additivi": "Additivi o potenziatori da usare in lavaggio — aceto bianco, bicarbonato, detersivo enzimatico, smacchiatore spray, acido ossalico, ecc.",
+  "consiglio": "Un consiglio esperto o avvertimento specifico per questa esatta combinazione di macchia + tessuto + colore che la maggior parte delle persone non conosce."
+}`;
+
+      try {
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 1000,
+            messages: [{ role: 'user', content: prompt }]
+          })
+        });
+
+        const data = await res.json();
+        const raw = data.content.map(i => i.text || '').join('');
+        const clean = raw.replace(/```json|```/g, '').trim();
+        const r = JSON.parse(clean);
+
+        const steps = [
+          { n: 1, title: 'Agisci subito',             body: r.immediato },
+          { n: 2, title: 'Tempo di trattamento',      body: r.tempo_trattamento },
+          { n: 3, title: 'Come lavare',                body: r.lavaggio },
+          { n: 4, title: 'Additivi per il lavaggio',  body: r.additivi }
+        ];
+
+        resultContent.innerHTML = `
+          <p class="section-label">Guida al trattamento</p>
+          <div class="steps-grid">
+            ${steps.map(s => `
+              <div class="step-card">
+                <div class="step-header">
+                  <div class="step-num">${s.n}</div>
+                  <div class="step-title">${s.title}</div>
+                </div>
+                <div class="step-content">${s.body}</div>
+              </div>`).join('')}
+          </div>
+          <div class="divider"></div>
+          <p class="section-label">Consiglio dell'esperto</p>
+          <div class="tip-box">${r.consiglio}</div>
+        `;
+
+      } catch (e) {
+        resultContent.innerHTML = '<p class="error-msg">Qualcosa è andato storto — controlla la connessione e riprova.</p>';
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Ottieni la guida al trattamento';
+    }
+  </script>
+</body>
+</html>
