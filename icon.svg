@@ -1,0 +1,36 @@
+<svg width="100%" viewBox="0 0 680 680" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Stain Rescue app icon</title>
+  <desc>A white dress shirt with a red wine stain splash on it, on a dark background</desc>
+
+  <rect width="680" height="680" rx="120" fill="#1a1917"/>
+
+  <path d="M220 175 L130 260 L195 285 L195 530 L485 530 L485 285 L550 260 L460 175 Q430 205 380 218 Q340 228 300 218 Q252 205 220 175Z" fill="#f0ede6"/>
+
+  <path d="M220 175 Q255 215 300 218 L300 260 L260 240 Z" fill="#e8e4dc"/>
+  <path d="M460 175 Q425 215 380 218 L380 260 L420 240 Z" fill="#e8e4dc"/>
+  <path d="M300 218 Q340 245 380 218 L380 260 L340 275 L300 260 Z" fill="#d8d4cc"/>
+
+  <rect x="333" y="270" width="14" height="240" fill="#e0dcd4" rx="2"/>
+  <circle cx="340" cy="300" r="7" fill="#c8c4bc"/>
+  <circle cx="340" cy="340" r="7" fill="#c8c4bc"/>
+  <circle cx="340" cy="380" r="7" fill="#c8c4bc"/>
+
+  <path d="M195 285 L220 175" stroke="#d8d4cc" stroke-width="2" fill="none"/>
+  <path d="M485 285 L460 175" stroke="#d8d4cc" stroke-width="2" fill="none"/>
+
+  <g opacity="0.92">
+    <path d="M290 360 Q270 340 275 315 Q282 295 305 292 Q325 290 338 308 Q355 295 372 300 Q392 308 388 330 Q398 342 390 362 Q382 382 360 385 Q340 400 318 390 Q295 383 290 360Z" fill="#8b1a1a"/>
+    <path d="M318 390 Q315 410 312 425 Q310 435 316 437 Q322 438 323 425 Q325 410 322 395Z" fill="#8b1a1a"/>
+    <path d="M350 382 Q355 400 358 416 Q360 426 355 428 Q349 428 348 416 Q346 402 348 386Z" fill="#7a1515"/>
+    <ellipse cx="272" cy="298" rx="10" ry="13" fill="#8b1a1a" transform="rotate(-20 272 298)"/>
+    <ellipse cx="382" cy="292" rx="8" ry="11" fill="#8b1a1a" transform="rotate(15 382 292)"/>
+    <circle cx="262" cy="318" r="5" fill="#8b1a1a"/>
+    <circle cx="395" cy="318" r="4" fill="#7a1515"/>
+    <circle cx="305" cy="278" r="3.5" fill="#8b1a1a"/>
+    <circle cx="368" cy="275" r="3" fill="#8b1a1a"/>
+    <circle cx="250" cy="335" r="3" fill="#7a1515"/>
+    <circle cx="400" cy="348" r="2.5" fill="#8b1a1a"/>
+    <circle cx="330" cy="270" r="2.5" fill="#8b1a1a"/>
+    <ellipse cx="320" cy="325" rx="18" ry="12" fill="#a02020" opacity="0.5"/>
+  </g>
+</svg>
