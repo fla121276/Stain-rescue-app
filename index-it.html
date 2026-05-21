@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>Salva il Capo</title>
+  <title>Stain Rescue</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
   <style>
@@ -341,8 +341,8 @@
     </div>
 
     <div class="header">
-      <h1>Salva il<br>Capo.</h1>
-      <p>Dicci cos'è successo — ti diciamo esattamente cosa fare.</p>
+      <h1>Stain<br>Rescue.</h1>
+      <p>Dimmi cos'è successo — ti dirò esattamente cosa fare.</p>
     </div>
 
     <div class="form-grid">
@@ -373,7 +373,7 @@
           <button class="color-btn" data-color="nero" onclick="selectColor(this)">
             <span class="swatch" style="background:#1a1a1a;"></span> Nero
           </button>
-          <button class="color-btn" data-color="colorato" onclick="selectColor(this)">
+          <button class="color-btn" data-color="colore" onclick="selectColor(this)">
             <span class="swatch" style="background: conic-gradient(red,yellow,lime,aqua,blue,magenta,red);"></span> Colore
           </button>
         </div>
@@ -382,7 +382,7 @@
       <div class="field full">
         <label>Tipo di macchia</label>
         <select id="stain-type" onchange="handleStainChange(this)">
-          <optgroup label="Cibo e bevande">
+          <optgroup label="Cibo &amp; bevande">
             <option value="vino rosso">Vino rosso</option>
             <option value="vino bianco">Vino bianco</option>
             <option value="caffè">Caffè</option>
@@ -391,7 +391,7 @@
             <option value="grasso / olio da cucina">Grasso / olio da cucina</option>
             <option value="burro">Burro</option>
             <option value="cioccolato">Cioccolato</option>
-            <option value="succo di frutta / bacche">Succo di frutta / bacche</option>
+            <option value="succo di frutta / frutti di bosco">Succo di frutta / frutti di bosco</option>
             <option value="senape">Senape</option>
             <option value="curry / curcuma">Curry / curcuma</option>
             <option value="uovo">Uovo</option>
@@ -406,26 +406,26 @@
             <option value="smalto per unghie">Smalto per unghie</option>
             <option value="urina">Urina</option>
           </optgroup>
-          <optgroup label="Natura e outdoor">
+          <optgroup label="Natura &amp; outdoor">
             <option value="erba">Erba</option>
             <option value="fango / terra">Fango / terra</option>
             <option value="polline">Polline</option>
           </optgroup>
           <optgroup label="Altro">
-            <option value="inchiostro (penna / pennarello)">Inchiostro (penna / pennarello)</option>
+            <option value="inchiostro (penna biro / pennarello)">Inchiostro (biro / pennarello)</option>
             <option value="cera / cera di candela">Cera / cera di candela</option>
             <option value="gomma da masticare">Gomma da masticare</option>
             <option value="crema solare">Crema solare</option>
             <option value="ruggine">Ruggine</option>
-            <option value="vernice a base d'acqua">Vernice a base d'acqua</option>
-            <option value="vernice a base di olio">Vernice a base di olio</option>
+            <option value="vernice (a base d'acqua)">Vernice (a base d'acqua)</option>
+            <option value="vernice (a base di olio)">Vernice (a base di olio)</option>
             <option value="colla">Colla</option>
             <option value="altro">Altro — descrivi qui sotto ↓</option>
           </optgroup>
         </select>
 
         <div id="other-stain-wrapper">
-          <textarea id="other-stain" placeholder="Descrivi la macchia (es. tè alla curcuma su una giacca da lavare a secco…)"></textarea>
+          <textarea id="other-stain" placeholder="Descrivi la macchia (es. tè alla curcuma su un giubbotto da lavare a secco…)"></textarea>
         </div>
       </div>
 
@@ -440,11 +440,13 @@
       <div id="result-content"></div>
     </div>
 
-    <div class="footer">Salva il Capo &mdash; powered by Claude AI</div>
+    <div class="footer">Stain Rescue &mdash; powered by Claude AI</div>
 
   </div>
 
   <script>
+    const ANTHROPIC_API_KEY = 'YOUR_API_KEY_HERE';
+
     let selectedColor = 'bianco';
 
     function selectColor(btn) {
@@ -475,27 +477,32 @@
       chips.innerHTML = `<span class="chip">${fabric}</span><span class="chip">${selectedColor}</span><span class="chip">${stain}</span>`;
       resultContent.innerHTML = '<div class="loading-wrap"><div class="loading-dots"><span></span><span></span><span></span></div></div>';
 
-      const prompt = `Sei un esperto di cura dei tessuti e lavanderia. Un utente ha una macchia e ha bisogno di aiuto immediato.
+      const prompt = `Sei un esperto di cura dei tessuti e del bucato. Un utente ha una macchia e ha bisogno di aiuto immediato.
 
 Tessuto: ${fabric}
 Colore del tessuto: ${selectedColor}
 Macchia: ${stain}
 
-Fornisci una guida pratica e concisa al trattamento, strutturata in esattamente queste 4 sezioni. Sii specifico e operativo. Adatta tutti i consigli al tessuto e al colore specifici. Per tessuti delicati (seta, cashmere, lana, velluto) sii sempre cauto e menziona la pulitura professionale quando opportuno.
+Fornisci una guida pratica e concisa in esattamente queste 4 sezioni. Sii specifico e concreto. Adatta tutti i consigli al tessuto e al colore specifici. Per i tessuti delicati (seta, cashmere, lana, velluto) sii sempre cauto e menziona la pulizia professionale quando appropriato.
 
-Rispondi SOLO in questo formato JSON (senza markdown, senza backtick, senza testo aggiuntivo):
+Rispondi SOLO in questo formato JSON (niente markdown, niente backtick, nessun testo aggiuntivo):
 {
-  "immediato": "Cosa fare ORA nei prossimi 1-2 minuti. Azioni specifiche: tamponare, sciacquare con acqua fredda, applicare sale, acqua frizzante, sapone per piatti, ecc.",
-  "tempo_trattamento": "Quanto tempo lasciare il trattamento e cosa osservare. Includi tempi precisi.",
-  "lavaggio": "Come lavare — temperatura, lavatrice o a mano, programma specifico. Sii preciso.",
-  "additivi": "Additivi o potenziatori da usare in lavaggio — aceto bianco, bicarbonato, detersivo enzimatico, smacchiatore spray, acido ossalico, ecc.",
-  "consiglio": "Un consiglio esperto o avvertimento specifico per questa esatta combinazione di macchia + tessuto + colore che la maggior parte delle persone non conosce."
+  "immediate": "Cosa fare ADESSO nei prossimi 1-2 minuti. Azioni specifiche: tampona, sciacqua con acqua fredda, applica sale, acqua frizzante, sapone per piatti, ecc.",
+  "treatment_time": "Quanto tempo lasciare il trattamento e cosa osservare. Includi tempi specifici.",
+  "wash": "Come lavare — temperatura, a mano o in lavatrice, programma. Sii preciso.",
+  "supplements": "Additivi o potenziatori da usare nel lavaggio — aceto bianco, bicarbonato, detergente enzimatico, spray smacchiatore, acido ossalico, ecc.",
+  "tip": "Un consiglio esperto o avvertimento specifico per questa combinazione esatta di macchia + tessuto + colore che la maggior parte delle persone non conosce."
 }`;
 
       try {
         const res = await fetch('https://api.anthropic.com/v1/messages', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': ANTHROPIC_API_KEY,
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true'
+          },
           body: JSON.stringify({
             model: 'claude-sonnet-4-20250514',
             max_tokens: 1000,
@@ -509,10 +516,10 @@ Rispondi SOLO in questo formato JSON (senza markdown, senza backtick, senza test
         const r = JSON.parse(clean);
 
         const steps = [
-          { n: 1, title: 'Agisci subito',             body: r.immediato },
-          { n: 2, title: 'Tempo di trattamento',      body: r.tempo_trattamento },
-          { n: 3, title: 'Come lavare',                body: r.lavaggio },
-          { n: 4, title: 'Additivi per il lavaggio',  body: r.additivi }
+          { n: 1, title: 'Agisci subito',         body: r.immediate },
+          { n: 2, title: 'Tempo di trattamento',  body: r.treatment_time },
+          { n: 3, title: 'Come lavare',            body: r.wash },
+          { n: 4, title: 'Additivi per il lavaggio', body: r.supplements }
         ];
 
         resultContent.innerHTML = `
@@ -528,8 +535,8 @@ Rispondi SOLO in questo formato JSON (senza markdown, senza backtick, senza test
               </div>`).join('')}
           </div>
           <div class="divider"></div>
-          <p class="section-label">Consiglio dell'esperto</p>
-          <div class="tip-box">${r.consiglio}</div>
+          <p class="section-label">Consiglio esperto</p>
+          <div class="tip-box">${r.tip}</div>
         `;
 
       } catch (e) {

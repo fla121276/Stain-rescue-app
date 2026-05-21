@@ -53,7 +53,6 @@
       padding: 3rem 2rem 5rem;
     }
 
-    /* ── Header ── */
     .header { margin-bottom: 3rem; }
 
     .lang-switch {
@@ -95,7 +94,6 @@
       line-height: 1.5;
     }
 
-    /* ── Form ── */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -151,7 +149,6 @@
       margin-top: 10px;
     }
 
-    /* ── Colour picker ── */
     .color-row { display: flex; gap: 10px; }
 
     .color-btn {
@@ -187,7 +184,6 @@
       font-weight: 500;
     }
 
-    /* ── Submit ── */
     .submit-btn {
       width: 100%;
       padding: 15px;
@@ -209,7 +205,6 @@
     .submit-btn:active { transform: scale(0.99); }
     .submit-btn:disabled { opacity: 0.35; cursor: default; }
 
-    /* ── Results ── */
     .result-area {
       margin-top: 2.5rem;
       border-top: 0.5px solid var(--border);
@@ -302,7 +297,6 @@
       border-left: 2px solid var(--border2);
     }
 
-    /* ── Loading ── */
     .loading-wrap { padding: 1.5rem 0; }
 
     .loading-dots { display: flex; gap: 6px; }
@@ -327,7 +321,6 @@
       padding: 1rem 0;
     }
 
-    /* ── Footer ── */
     .footer {
       margin-top: 4rem;
       text-align: center;
@@ -452,6 +445,8 @@
   </div>
 
   <script>
+    const ANTHROPIC_API_KEY = 'YOUR_API_KEY_HERE';
+
     let selectedColor = 'white';
 
     function selectColor(btn) {
@@ -502,7 +497,12 @@ Respond ONLY in this JSON format (no markdown, no backticks, no extra text):
       try {
         const res = await fetch('https://api.anthropic.com/v1/messages', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': ANTHROPIC_API_KEY,
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true'
+          },
           body: JSON.stringify({
             model: 'claude-sonnet-4-20250514',
             max_tokens: 1000,
