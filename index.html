@@ -495,13 +495,10 @@ Respond ONLY in this JSON format (no markdown, no backticks, no extra text):
 }`;
 
       try {
-        const res = await fetch('https://api.anthropic.com/v1/messages', {
+        const res = await fetch('https://little-shape-8020.team-359.workers.dev', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'x-api-key': ANTHROPIC_API_KEY,
-            'anthropic-version': '2023-06-01',
-            'anthropic-dangerous-direct-browser-access': 'true'
           },
           body: JSON.stringify({
             model: 'claude-haiku-4-5-20251001',
