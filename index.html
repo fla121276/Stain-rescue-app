@@ -13,25 +13,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #faf9f6; --surface: #ffffff; --surface2: #f2f0eb;
-      --border: rgba(0,0,0,0.1); --border2: rgba(0,0,0,0.18);
-      --text: #1a1917; --text2: #6b6860; --text3: #9c9a94;
-      --accent: #1a1917; --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #141412; --surface: #1e1d1a; --surface2: #272521;
-        --border: rgba(255,255,255,0.09); --border2: rgba(255,255,255,0.16);
-        --text: #f0ede6; --text2: #9c9a94; --text3: #6b6860; --accent: #f0ede6;
-      }
-    }
+    :root { --bg: #faf9f6; --surface: #ffffff; --surface2: #f2f0eb; --border: rgba(0,0,0,0.1); --border2: rgba(0,0,0,0.18); --text: #1a1917; --text2: #6b6860; --text3: #9c9a94; --accent: #1a1917; --radius-md: 12px; --radius-lg: 16px; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #141412; --surface: #1e1d1a; --surface2: #272521; --border: rgba(255,255,255,0.09); --border2: rgba(255,255,255,0.16); --text: #f0ede6; --text2: #9c9a94; --text3: #6b6860; --accent: #f0ede6; } }
     html, body { min-height: 100%; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; }
     .app { max-width: 720px; margin: 0 auto; padding: 3rem 2rem 5rem; }
     .header { margin-bottom: 3rem; }
-    .lang-switch { display: flex; justify-content: flex-end; margin-bottom: 2rem; }
+    .lang-switch { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 2rem; }
     .lang-link { font-size: 12px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text2); text-decoration: none; padding: 6px 14px; border: 0.5px solid var(--border2); border-radius: 20px; transition: color 0.15s, border-color 0.15s; }
-    .lang-link:hover { color: var(--text); border-color: var(--text); }
+    .lang-link:hover, .lang-link.active { color: var(--text); border-color: var(--text); font-weight: 600; }
     h1 { font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(44px, 8vw, 64px); font-weight: 400; line-height: 1.0; letter-spacing: -1px; color: var(--text); }
     .header p { font-size: 15px; color: var(--text2); margin-top: 10px; font-weight: 300; line-height: 1.5; }
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
@@ -48,9 +37,7 @@
     .color-btn .swatch { width: 13px; height: 13px; border-radius: 50%; border: 0.5px solid var(--border2); flex-shrink: 0; }
     .color-btn.active { border-color: var(--text); background: var(--surface2); color: var(--text); font-weight: 500; }
     .submit-btn { width: 100%; padding: 15px; background: var(--accent); color: var(--bg); border: none; border-radius: var(--radius-md); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; letter-spacing: 0.02em; transition: opacity 0.15s, transform 0.1s; margin-top: 4px; -webkit-tap-highlight-color: transparent; }
-    .submit-btn:hover { opacity: 0.82; }
-    .submit-btn:active { transform: scale(0.99); }
-    .submit-btn:disabled { opacity: 0.35; cursor: default; }
+    .submit-btn:hover { opacity: 0.82; } .submit-btn:active { transform: scale(0.99); } .submit-btn:disabled { opacity: 0.35; cursor: default; }
     .result-area { margin-top: 2.5rem; border-top: 0.5px solid var(--border); padding-top: 2.5rem; display: none; animation: fadeIn 0.4s ease; }
     .result-area.show { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -69,19 +56,19 @@
     .loading-wrap { padding: 1.5rem 0; }
     .loading-dots { display: flex; gap: 6px; }
     .loading-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--text3); animation: dot 1s ease-in-out infinite; }
-    .loading-dots span:nth-child(2) { animation-delay: 0.15s; }
-    .loading-dots span:nth-child(3) { animation-delay: 0.3s; }
+    .loading-dots span:nth-child(2) { animation-delay: 0.15s; } .loading-dots span:nth-child(3) { animation-delay: 0.3s; }
     @keyframes dot { 0%, 100% { opacity: 0.2; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1); } }
     .error-msg { font-size: 14px; color: #c0392b; padding: 1rem 0; }
     .footer { margin-top: 4rem; text-align: center; font-size: 12px; color: var(--text3); letter-spacing: 0.04em; }
-    #other-stain-wrapper { display: none; }
-    #other-stain-wrapper.show { display: block; }
+    #other-stain-wrapper { display: none; } #other-stain-wrapper.show { display: block; }
   </style>
 </head>
 <body>
   <div class="app">
     <div class="lang-switch">
-      <a href="index-it.html" class="lang-link">Italiano →</a>
+      <a href="index.html" class="lang-link active">EN</a>
+      <a href="index-it.html" class="lang-link">IT</a>
+      <a href="index-de.html" class="lang-link">DE</a>
     </div>
     <div class="header">
       <h1>Stain<br>Rescue.</h1>
@@ -91,85 +78,29 @@
       <div class="field">
         <label>Fabric type</label>
         <select id="fabric">
-          <option value="cotton">Cotton</option>
-          <option value="linen">Linen</option>
-          <option value="wool">Wool</option>
-          <option value="cashmere">Cashmere</option>
-          <option value="silk">Silk</option>
-          <option value="synthetic / polyester">Synthetic / Polyester</option>
-          <option value="denim">Denim</option>
-          <option value="viscose / rayon">Viscose / Rayon</option>
-          <option value="velvet">Velvet</option>
-          <option value="leather">Leather</option>
-          <option value="down / puffer">Down / Puffer</option>
+          <option value="cotton">Cotton</option><option value="linen">Linen</option><option value="wool">Wool</option><option value="cashmere">Cashmere</option><option value="silk">Silk</option><option value="synthetic / polyester">Synthetic / Polyester</option><option value="denim">Denim</option><option value="viscose / rayon">Viscose / Rayon</option><option value="velvet">Velvet</option><option value="leather">Leather</option><option value="down / puffer">Down / Puffer</option>
         </select>
       </div>
       <div class="field">
         <label>Fabric colour</label>
         <div class="color-row">
-          <button class="color-btn active" data-color="white" onclick="selectColor(this)">
-            <span class="swatch" style="background:#f5f5f0; border-color:#ccc;"></span> White
-          </button>
-          <button class="color-btn" data-color="black" onclick="selectColor(this)">
-            <span class="swatch" style="background:#1a1a1a;"></span> Black
-          </button>
-          <button class="color-btn" data-color="colour" onclick="selectColor(this)">
-            <span class="swatch" style="background: conic-gradient(red,yellow,lime,aqua,blue,magenta,red);"></span> Colour
-          </button>
+          <button class="color-btn active" data-color="white" onclick="selectColor(this)"><span class="swatch" style="background:#f5f5f0; border-color:#ccc;"></span> White</button>
+          <button class="color-btn" data-color="black" onclick="selectColor(this)"><span class="swatch" style="background:#1a1a1a;"></span> Black</button>
+          <button class="color-btn" data-color="colour" onclick="selectColor(this)"><span class="swatch" style="background: conic-gradient(red,yellow,lime,aqua,blue,magenta,red);"></span> Colour</button>
         </div>
       </div>
       <div class="field full">
         <label>Type of stain</label>
         <select id="stain-type" onchange="handleStainChange(this)">
-          <optgroup label="Food &amp; drink">
-            <option value="red wine">Red wine</option>
-            <option value="white wine">White wine</option>
-            <option value="coffee">Coffee</option>
-            <option value="tea">Tea</option>
-            <option value="tomato / tomato sauce">Tomato / tomato sauce</option>
-            <option value="grease / cooking oil">Grease / cooking oil</option>
-            <option value="butter">Butter</option>
-            <option value="chocolate">Chocolate</option>
-            <option value="fruit / berry juice">Fruit / berry juice</option>
-            <option value="mustard">Mustard</option>
-            <option value="curry / turmeric">Curry / turmeric</option>
-            <option value="egg">Egg</option>
-            <option value="milk / dairy">Milk / dairy</option>
-          </optgroup>
-          <optgroup label="Body">
-            <option value="blood">Blood</option>
-            <option value="sweat">Sweat</option>
-            <option value="deodorant">Deodorant</option>
-            <option value="make-up / foundation">Make-up / foundation</option>
-            <option value="lipstick">Lipstick</option>
-            <option value="nail polish">Nail polish</option>
-            <option value="urine">Urine</option>
-          </optgroup>
-          <optgroup label="Nature &amp; outdoors">
-            <option value="grass">Grass</option>
-            <option value="mud / dirt">Mud / dirt</option>
-            <option value="pollen">Pollen</option>
-          </optgroup>
-          <optgroup label="Other">
-            <option value="ink (ballpoint / felt-tip)">Ink (ballpoint / felt-tip)</option>
-            <option value="wax / candle wax">Wax / candle wax</option>
-            <option value="chewing gum">Chewing gum</option>
-            <option value="sunscreen">Sunscreen</option>
-            <option value="rust">Rust</option>
-            <option value="paint (water-based)">Paint (water-based)</option>
-            <option value="paint (oil-based)">Paint (oil-based)</option>
-            <option value="glue">Glue</option>
-            <option value="other">Other — describe below ↓</option>
-          </optgroup>
+          <optgroup label="Food &amp; drink"><option value="red wine">Red wine</option><option value="white wine">White wine</option><option value="coffee">Coffee</option><option value="tea">Tea</option><option value="tomato / tomato sauce">Tomato / tomato sauce</option><option value="grease / cooking oil">Grease / cooking oil</option><option value="butter">Butter</option><option value="chocolate">Chocolate</option><option value="fruit / berry juice">Fruit / berry juice</option><option value="mustard">Mustard</option><option value="curry / turmeric">Curry / turmeric</option><option value="egg">Egg</option><option value="milk / dairy">Milk / dairy</option></optgroup>
+          <optgroup label="Body"><option value="blood">Blood</option><option value="sweat">Sweat</option><option value="deodorant">Deodorant</option><option value="make-up / foundation">Make-up / foundation</option><option value="lipstick">Lipstick</option><option value="nail polish">Nail polish</option><option value="urine">Urine</option></optgroup>
+          <optgroup label="Nature &amp; outdoors"><option value="grass">Grass</option><option value="mud / dirt">Mud / dirt</option><option value="pollen">Pollen</option></optgroup>
+          <optgroup label="Other"><option value="ink (ballpoint / felt-tip)">Ink (ballpoint / felt-tip)</option><option value="wax / candle wax">Wax / candle wax</option><option value="chewing gum">Chewing gum</option><option value="sunscreen">Sunscreen</option><option value="rust">Rust</option><option value="paint (water-based)">Paint (water-based)</option><option value="paint (oil-based)">Paint (oil-based)</option><option value="glue">Glue</option><option value="other">Other — describe below ↓</option></optgroup>
         </select>
-        <div id="other-stain-wrapper">
-          <textarea id="other-stain" placeholder="Describe the stain (e.g. turmeric tea on a dry-clean-only jacket…)"></textarea>
-        </div>
+        <div id="other-stain-wrapper"><textarea id="other-stain" placeholder="Describe the stain (e.g. turmeric tea on a dry-clean-only jacket…)"></textarea></div>
       </div>
     </div>
-    <button class="submit-btn" id="submit-btn" onclick="getTreatment()">
-      Get treatment guide
-    </button>
+    <button class="submit-btn" id="submit-btn" onclick="getTreatment()">Get treatment guide</button>
     <div class="result-area" id="result-area">
       <div class="context-chips" id="context-chips"></div>
       <div id="result-content"></div>
@@ -178,62 +109,36 @@
   </div>
   <script>
     let selectedColor = 'white';
-    function selectColor(btn) {
-      document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selectedColor = btn.dataset.color;
-    }
-    function handleStainChange(sel) {
-      document.getElementById('other-stain-wrapper').classList.toggle('show', sel.value === 'other');
-    }
-    function boldFirstSentence(text) {
-      const match = text.match(/^([^.!?]+[.!?])\s*([\s\S]*)/);
-      if (match) return '<strong>' + match[1] + '</strong> ' + match[2];
-      return text;
-    }
+    function selectColor(btn) { document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); selectedColor = btn.dataset.color; }
+    function handleStainChange(sel) { document.getElementById('other-stain-wrapper').classList.toggle('show', sel.value === 'other'); }
+    function boldFirstSentence(text) { const match = text.match(/^([^.!?]+[.!?])\s*([\s\S]*)/); if (match) return '<strong>' + match[1] + '</strong> ' + match[2]; return text; }
     async function getTreatment() {
       const fabric = document.getElementById('fabric').value;
       const stainVal = document.getElementById('stain-type').value;
       const otherText = document.getElementById('other-stain').value.trim();
       const stain = stainVal === 'other' ? (otherText || 'an unspecified stain') : stainVal;
       const btn = document.getElementById('submit-btn');
-      btn.disabled = true;
-      btn.textContent = 'Analysing…';
+      btn.disabled = true; btn.textContent = 'Analysing…';
       const resultArea = document.getElementById('result-area');
       const resultContent = document.getElementById('result-content');
       const chips = document.getElementById('context-chips');
       resultArea.classList.add('show');
       chips.innerHTML = '<span class="chip">' + fabric + '</span><span class="chip">' + selectedColor + '</span><span class="chip">' + stain + '</span>';
       resultContent.innerHTML = '<div class="loading-wrap"><div class="loading-dots"><span></span><span></span><span></span></div></div>';
-      const prompt = 'You are a laundry and fabric care expert. A user has a stain and needs immediate help.\n\nFabric: ' + fabric + '\nFabric colour: ' + selectedColor + '\nStain: ' + stain + '\n\nProvide a concise, practical treatment guide in exactly these 4 sections. Be specific and actionable. Adapt all advice to the specific fabric and colour. For delicate fabrics (silk, cashmere, wool, velvet) always be cautious and mention professional cleaning when appropriate.\n\nRespond ONLY in this JSON format (no markdown, no backticks, no extra text):\n{\n  "immediate": "What to do RIGHT NOW in the next 1-2 minutes.",\n  "treatment_time": "How long to leave the treatment and what to watch for.",\n  "wash": "How to wash — temperature, machine or hand wash, cycle.",\n  "supplements": "Additives or boosters to use when washing.",\n  "tip": "One expert tip specific to this exact stain + fabric + colour combination."\n}';
+      const prompt = 'You are a master fabric care expert with encyclopedic knowledge of stain removal. A user needs help with a stain.\n\nFabric: ' + fabric + '\nFabric colour: ' + selectedColor + '\nStain: ' + stain + '\n\nProvide a practical, expert treatment guide. Prioritise the most effective proven methods. Where genuinely useful, mention less obvious but highly effective remedies (e.g. sparkling water, chalk powder, shaving foam, salt, club soda, freezing for gum, hairspray for ink, baby powder for grease, gall soap, oxgall) — but only when they are truly better than standard methods for this specific stain and fabric. Always adapt to the fabric and colour. For delicate fabrics (silk, cashmere, wool, velvet) be cautious.\n\nRespond ONLY in this JSON format (no markdown, no backticks, no extra text):\n{\n  "immediate": "What to do RIGHT NOW in the next 1-2 minutes. Specific and actionable.",\n  "treatment_time": "How long to leave the treatment and what to watch for. Include specific timing.",\n  "wash": "How to wash — temperature, machine or hand wash, cycle. Be precise.",\n  "supplements": "The most effective additives for this specific stain — only recommend what truly works best here.",\n  "tip": "One expert-level tip for this exact stain + fabric + colour combination that most people overlook."\n}';
       try {
         const res = await fetch('https://little-shape-8020.team-359.workers.dev', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: 'claude-haiku-4-5-20251001',
-            max_tokens: 1000,
-            messages: [{ role: 'user', content: prompt }]
-          })
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ model: 'claude-haiku-4-5-20251001', max_tokens: 1000, messages: [{ role: 'user', content: prompt }] })
         });
         const data = await res.json();
         const raw = data.content.map(i => i.text || '').join('');
         const clean = raw.replace(/```json|```/g, '').trim();
         const r = JSON.parse(clean);
-        const steps = [
-          { n: 1, title: 'Act now', body: r.immediate },
-          { n: 2, title: 'Treatment time', body: r.treatment_time },
-          { n: 3, title: 'How to wash', body: r.wash },
-          { n: 4, title: 'Washing supplements', body: r.supplements }
-        ];
-        resultContent.innerHTML = '<p class="section-label">Treatment guide</p><div class="steps-grid">' +
-          steps.map(s => '<div class="step-card"><div class="step-header"><div class="step-num">' + s.n + '</div><div class="step-title">' + s.title + '</div></div><div class="step-content">' + boldFirstSentence(s.body) + '</div></div>').join('') +
-          '</div><div class="divider"></div><p class="section-label">Expert tip</p><div class="tip-box">💡 ' + r.tip + '</div>';
-      } catch (e) {
-        resultContent.innerHTML = '<p class="error-msg">Something went wrong — please check your connection and try again.</p>';
-      }
-      btn.disabled = false;
-      btn.textContent = 'Get treatment guide';
+        const steps = [{ n: 1, title: 'Act now', body: r.immediate }, { n: 2, title: 'Treatment time', body: r.treatment_time }, { n: 3, title: 'How to wash', body: r.wash }, { n: 4, title: 'Washing supplements', body: r.supplements }];
+        resultContent.innerHTML = '<p class="section-label">Treatment guide</p><div class="steps-grid">' + steps.map(s => '<div class="step-card"><div class="step-header"><div class="step-num">' + s.n + '</div><div class="step-title">' + s.title + '</div></div><div class="step-content">' + boldFirstSentence(s.body) + '</div></div>').join('') + '</div><div class="divider"></div><p class="section-label">Expert tip</p><div class="tip-box">💡 ' + r.tip + '</div>';
+      } catch (e) { resultContent.innerHTML = '<p class="error-msg">Something went wrong — please check your connection and try again.</p>'; }
+      btn.disabled = false; btn.textContent = 'Get treatment guide';
     }
   </script>
 </body>

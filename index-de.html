@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -67,40 +67,40 @@
   <div class="app">
     <div class="lang-switch">
       <a href="index.html" class="lang-link">EN</a>
-      <a href="index-it.html" class="lang-link active">IT</a>
-      <a href="index-de.html" class="lang-link">DE</a>
+      <a href="index-it.html" class="lang-link">IT</a>
+      <a href="index-de.html" class="lang-link active">DE</a>
     </div>
     <div class="header">
       <h1>Stain<br>Rescue.</h1>
-      <p>Dimmi cos'è successo — ti dirò esattamente cosa fare.</p>
+      <p>Sag uns was passiert ist — wir sagen dir genau was zu tun ist.</p>
     </div>
     <div class="form-grid">
       <div class="field">
-        <label>Tipo di tessuto</label>
+        <label>Stoffart</label>
         <select id="fabric">
-          <option value="cotone">Cotone</option><option value="lino">Lino</option><option value="lana">Lana</option><option value="cashmere">Cashmere</option><option value="seta">Seta</option><option value="sintetico / poliestere">Sintetico / Poliestere</option><option value="denim">Denim</option><option value="viscosa / rayon">Viscosa / Rayon</option><option value="velluto">Velluto</option><option value="pelle">Pelle</option><option value="piumino">Piumino</option>
+          <option value="Baumwolle">Baumwolle</option><option value="Leinen">Leinen</option><option value="Wolle">Wolle</option><option value="Kaschmir">Kaschmir</option><option value="Seide">Seide</option><option value="Synthetik / Polyester">Synthetik / Polyester</option><option value="Denim">Denim</option><option value="Viskose / Rayon">Viskose / Rayon</option><option value="Samt">Samt</option><option value="Leder">Leder</option><option value="Daunen / Steppjacke">Daunen / Steppjacke</option>
         </select>
       </div>
       <div class="field">
-        <label>Colore del tessuto</label>
+        <label>Stofffarbe</label>
         <div class="color-row">
-          <button class="color-btn active" data-color="bianco" onclick="selectColor(this)"><span class="swatch" style="background:#f5f5f0; border-color:#ccc;"></span> Bianco</button>
-          <button class="color-btn" data-color="nero" onclick="selectColor(this)"><span class="swatch" style="background:#1a1a1a;"></span> Nero</button>
-          <button class="color-btn" data-color="colore" onclick="selectColor(this)"><span class="swatch" style="background: conic-gradient(red,yellow,lime,aqua,blue,magenta,red);"></span> Colore</button>
+          <button class="color-btn active" data-color="weiß" onclick="selectColor(this)"><span class="swatch" style="background:#f5f5f0; border-color:#ccc;"></span> Weiß</button>
+          <button class="color-btn" data-color="schwarz" onclick="selectColor(this)"><span class="swatch" style="background:#1a1a1a;"></span> Schwarz</button>
+          <button class="color-btn" data-color="farbig" onclick="selectColor(this)"><span class="swatch" style="background: conic-gradient(red,yellow,lime,aqua,blue,magenta,red);"></span> Farbe</button>
         </div>
       </div>
       <div class="field full">
-        <label>Tipo di macchia</label>
+        <label>Fleckenart</label>
         <select id="stain-type" onchange="handleStainChange(this)">
-          <optgroup label="Cibo &amp; bevande"><option value="vino rosso">Vino rosso</option><option value="vino bianco">Vino bianco</option><option value="caffè">Caffè</option><option value="tè">Tè</option><option value="pomodoro / salsa di pomodoro">Pomodoro / salsa</option><option value="grasso / olio da cucina">Grasso / olio da cucina</option><option value="burro">Burro</option><option value="cioccolato">Cioccolato</option><option value="succo di frutta / frutti di bosco">Succo di frutta</option><option value="senape">Senape</option><option value="curry / curcuma">Curry / curcuma</option><option value="uovo">Uovo</option><option value="latte / latticini">Latte / latticini</option></optgroup>
-          <optgroup label="Corpo"><option value="sangue">Sangue</option><option value="sudore">Sudore</option><option value="deodorante">Deodorante</option><option value="trucco / fondotinta">Trucco / fondotinta</option><option value="rossetto">Rossetto</option><option value="smalto per unghie">Smalto per unghie</option><option value="urina">Urina</option></optgroup>
-          <optgroup label="Natura &amp; outdoor"><option value="erba">Erba</option><option value="fango / terra">Fango / terra</option><option value="polline">Polline</option></optgroup>
-          <optgroup label="Altro"><option value="inchiostro (biro / pennarello)">Inchiostro (biro / pennarello)</option><option value="cera / cera di candela">Cera / cera di candela</option><option value="gomma da masticare">Gomma da masticare</option><option value="crema solare">Crema solare</option><option value="ruggine">Ruggine</option><option value="vernice (a base d'acqua)">Vernice (a base d'acqua)</option><option value="vernice (a base di olio)">Vernice (a base di olio)</option><option value="colla">Colla</option><option value="altro">Altro — descrivi qui sotto ↓</option></optgroup>
+          <optgroup label="Essen &amp; Trinken"><option value="Rotwein">Rotwein</option><option value="Weißwein">Weißwein</option><option value="Kaffee">Kaffee</option><option value="Tee">Tee</option><option value="Tomate / Tomatensauce">Tomate / Tomatensauce</option><option value="Fett / Speiseöl">Fett / Speiseöl</option><option value="Butter">Butter</option><option value="Schokolade">Schokolade</option><option value="Frucht- / Beerensaft">Frucht- / Beerensaft</option><option value="Senf">Senf</option><option value="Curry / Kurkuma">Curry / Kurkuma</option><option value="Ei">Ei</option><option value="Milch / Milchprodukte">Milch / Milchprodukte</option></optgroup>
+          <optgroup label="Körper"><option value="Blut">Blut</option><option value="Schweiß">Schweiß</option><option value="Deodorant">Deodorant</option><option value="Make-up / Foundation">Make-up / Foundation</option><option value="Lippenstift">Lippenstift</option><option value="Nagellack">Nagellack</option><option value="Urin">Urin</option></optgroup>
+          <optgroup label="Natur &amp; Outdoor"><option value="Gras">Gras</option><option value="Schlamm / Erde">Schlamm / Erde</option><option value="Pollen">Pollen</option></optgroup>
+          <optgroup label="Sonstiges"><option value="Tinte (Kugelschreiber / Filzstift)">Tinte (Kugelschreiber / Filzstift)</option><option value="Wachs / Kerzenwachs">Wachs / Kerzenwachs</option><option value="Kaugummi">Kaugummi</option><option value="Sonnencreme">Sonnencreme</option><option value="Rost">Rost</option><option value="Farbe (wasserlöslich)">Farbe (wasserlöslich)</option><option value="Farbe (ölbasiert)">Farbe (ölbasiert)</option><option value="Klebstoff">Klebstoff</option><option value="sonstiges">Sonstiges — unten beschreiben ↓</option></optgroup>
         </select>
-        <div id="other-stain-wrapper"><textarea id="other-stain" placeholder="Descrivi la macchia…"></textarea></div>
+        <div id="other-stain-wrapper"><textarea id="other-stain" placeholder="Beschreibe den Fleck…"></textarea></div>
       </div>
     </div>
-    <button class="submit-btn" id="submit-btn" onclick="getTreatment()">Ottieni la guida al trattamento</button>
+    <button class="submit-btn" id="submit-btn" onclick="getTreatment()">Behandlungsanleitung abrufen</button>
     <div class="result-area" id="result-area">
       <div class="context-chips" id="context-chips"></div>
       <div id="result-content"></div>
@@ -108,24 +108,24 @@
     <div class="footer">Stain Rescue &mdash; powered by Claude AI</div>
   </div>
   <script>
-    let selectedColor = 'bianco';
+    let selectedColor = 'weiß';
     function selectColor(btn) { document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); selectedColor = btn.dataset.color; }
-    function handleStainChange(sel) { document.getElementById('other-stain-wrapper').classList.toggle('show', sel.value === 'altro'); }
+    function handleStainChange(sel) { document.getElementById('other-stain-wrapper').classList.toggle('show', sel.value === 'sonstiges'); }
     function boldFirstSentence(text) { const match = text.match(/^([^.!?]+[.!?])\s*([\s\S]*)/); if (match) return '<strong>' + match[1] + '</strong> ' + match[2]; return text; }
     async function getTreatment() {
       const fabric = document.getElementById('fabric').value;
       const stainVal = document.getElementById('stain-type').value;
       const otherText = document.getElementById('other-stain').value.trim();
-      const stain = stainVal === 'altro' ? (otherText || 'una macchia non specificata') : stainVal;
+      const stain = stainVal === 'sonstiges' ? (otherText || 'ein unbekannter Fleck') : stainVal;
       const btn = document.getElementById('submit-btn');
-      btn.disabled = true; btn.textContent = 'Analisi in corso…';
+      btn.disabled = true; btn.textContent = 'Wird analysiert…';
       const resultArea = document.getElementById('result-area');
       const resultContent = document.getElementById('result-content');
       const chips = document.getElementById('context-chips');
       resultArea.classList.add('show');
       chips.innerHTML = '<span class="chip">' + fabric + '</span><span class="chip">' + selectedColor + '</span><span class="chip">' + stain + '</span>';
       resultContent.innerHTML = '<div class="loading-wrap"><div class="loading-dots"><span></span><span></span><span></span></div></div>';
-      const prompt = 'Sei un esperto di cura dei tessuti e rimozione macchie. Un utente ha bisogno di aiuto urgente.\n\nTessuto: ' + fabric + '\nColore del tessuto: ' + selectedColor + '\nMacchia: ' + stain + '\n\nFornisci una guida pratica ed esperta. Dai priorità ai metodi più efficaci e collaudati. Dove genuinamente utile, menziona rimedi meno ovvi ma altamente efficaci (es. acqua frizzante, gesso in polvere, schiuma da barba, sale, acque gassate, congelamento per la gomma, lacca per capelli per l\'inchiostro, borotalco per il grasso, sapone alla bile) — ma solo quando sono davvero migliori per questa specifica macchia e tessuto. Adatta sempre al tessuto e al colore. Per tessuti delicati (seta, cashmere, lana, velluto) sii cauto.\n\nRispondi SOLO in questo formato JSON (niente markdown, niente backtick, nessun testo aggiuntivo):\n{\n  "immediate": "Cosa fare ADESSO nei prossimi 1-2 minuti. Specifico e concreto.",\n  "treatment_time": "Quanto tempo lasciare il trattamento e cosa osservare. Tempi precisi.",\n  "wash": "Come lavare — temperatura, a mano o in lavatrice, programma. Preciso.",\n  "supplements": "Gli additivi più efficaci per questa specifica macchia.",\n  "tip": "Un consiglio esperto per questa esatta combinazione macchia + tessuto + colore che la maggior parte delle persone non conosce."\n}';
+      const prompt = 'Du bist ein Experte für Textilpflege und Fleckenentfernung. Ein Nutzer braucht dringend Hilfe.\n\nStoff: ' + fabric + '\nStofffarbe: ' + selectedColor + '\nFleck: ' + stain + '\n\nGib eine praktische, fachkundige Behandlungsanleitung. Priorisiere die effektivsten bewährten Methoden. Wo wirklich sinnvoll, erwähne weniger bekannte aber hochwirksame Hausmittel (z.B. Sprudelwasser, Kreide, Rasierschaum, Salz, Einfrieren bei Kaugummi, Haarspray bei Tinte, Babypuder bei Fett, Gallseife, Oxalsäure) — aber nur wenn sie für diesen spezifischen Fleck und Stoff wirklich besser sind. Immer an Stoff und Farbe anpassen. Bei empfindlichen Stoffen (Seide, Kaschmir, Wolle, Samt) vorsichtig sein.\n\nAntworte NUR in diesem JSON-Format (kein Markdown, keine Backticks, kein zusätzlicher Text):\n{\n  "immediate": "Was JETZT in den nächsten 1-2 Minuten zu tun ist. Konkret und spezifisch.",\n  "treatment_time": "Wie lange die Behandlung einwirken lassen und worauf achten. Genaue Zeiten.",\n  "wash": "Waschhinweise — Temperatur, Hand- oder Maschinenwäsche, Programm. Präzise.",\n  "supplements": "Die wirksamsten Zusätze für diesen spezifischen Fleck.",\n  "tip": "Ein Expertentipp für genau diese Fleck + Stoff + Farbe Kombination, den die meisten nicht kennen."\n}';
       try {
         const res = await fetch('https://little-shape-8020.team-359.workers.dev', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -135,10 +135,10 @@
         const raw = data.content.map(i => i.text || '').join('');
         const clean = raw.replace(/```json|```/g, '').trim();
         const r = JSON.parse(clean);
-        const steps = [{ n: 1, title: 'Agisci subito', body: r.immediate }, { n: 2, title: 'Tempo di trattamento', body: r.treatment_time }, { n: 3, title: 'Come lavare', body: r.wash }, { n: 4, title: 'Additivi per il lavaggio', body: r.supplements }];
-        resultContent.innerHTML = '<p class="section-label">Guida al trattamento</p><div class="steps-grid">' + steps.map(s => '<div class="step-card"><div class="step-header"><div class="step-num">' + s.n + '</div><div class="step-title">' + s.title + '</div></div><div class="step-content">' + boldFirstSentence(s.body) + '</div></div>').join('') + '</div><div class="divider"></div><p class="section-label">Consiglio esperto</p><div class="tip-box">💡 ' + r.tip + '</div>';
-      } catch (e) { resultContent.innerHTML = '<p class="error-msg">Qualcosa è andato storto — controlla la connessione e riprova.</p>'; }
-      btn.disabled = false; btn.textContent = 'Ottieni la guida al trattamento';
+        const steps = [{ n: 1, title: 'Sofort handeln', body: r.immediate }, { n: 2, title: 'Einwirkzeit', body: r.treatment_time }, { n: 3, title: 'Waschen', body: r.wash }, { n: 4, title: 'Waschmittelzusätze', body: r.supplements }];
+        resultContent.innerHTML = '<p class="section-label">Behandlungsanleitung</p><div class="steps-grid">' + steps.map(s => '<div class="step-card"><div class="step-header"><div class="step-num">' + s.n + '</div><div class="step-title">' + s.title + '</div></div><div class="step-content">' + boldFirstSentence(s.body) + '</div></div>').join('') + '</div><div class="divider"></div><p class="section-label">Expertentipp</p><div class="tip-box">💡 ' + r.tip + '</div>';
+      } catch (e) { resultContent.innerHTML = '<p class="error-msg">Etwas ist schiefgelaufen — bitte Verbindung prüfen und erneut versuchen.</p>'; }
+      btn.disabled = false; btn.textContent = 'Behandlungsanleitung abrufen';
     }
   </script>
 </body>
